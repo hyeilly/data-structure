@@ -1,3 +1,5 @@
+#include "Point.h"
+
 // 매크로 선언 
 #ifndef __ARRAY_LIST_H__
 #define __ARRAY_LIST_H__
@@ -7,7 +9,7 @@
 
 // ArrayList의 정의
 #define LIST_LEN    100
-typedef int LData; // 저장할 대상의 자료형 변경을 위한 typedef 선언
+typedef Point * LData; // 저장할 대상의 자료형 변경을 위한 typedef 선언
 
 typedef struct __ArrayList // 배열기반 리스트를 정의한 구조체
 {
