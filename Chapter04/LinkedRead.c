@@ -19,4 +19,28 @@ int main(void)
 
   Node * newNode = NULL;
   int readData;
+
+  while(1)
+  {
+    printf("자연수 입력: ");
+    scanf("%d", &readData);
+    if(readData < 1)
+      break;
+
+    // 노드의 추가 과정
+    newNode = (Node*)malloc(sizeof(Node));
+    newNode->data = readData;
+    newNode->next = NULL;
+
+    // 노드를 추가하는 과정이 나뉘어짐 
+    if(head == NULL)
+      // 첫번째 노드가 저장되는 케이스
+      head = newNode;
+    else:
+      // 두번째 이후의 노드가 저장되는 케이스
+      tail->next = newNode;
+      // tail->next는 tail이 가리키는 노드의 멤버 next 
+    
+    tail = newNode; 
+  }
 }
