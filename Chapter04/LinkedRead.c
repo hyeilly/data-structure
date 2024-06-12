@@ -43,4 +43,23 @@ int main(void)
     
     tail = newNode; 
   }
+
+  // 전체 데이터의 출력 과정(조회)
+  if(head == NULL)
+  {
+    prinf("저장된 자연수가 존재하지 않습니다 \n");
+  }
+  else
+  {
+    // 첫번째 노드를 참조
+    cur = head; // 첫번째 노드 가리킴 
+    printf("%d", cur->data); 
+    // 두번째 이후 노드를 참조
+    while(cur->next != NULL)
+    {
+      // 첫번째 노드에서 가지고 있는 두번째 노드의 주소값을 cur에 저장
+      cur = cur->next;
+      printf("%d ", cur->data);
+    }
+  }
 }
