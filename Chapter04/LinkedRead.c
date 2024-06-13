@@ -62,4 +62,26 @@ int main(void)
       printf("%d ", cur->data);
     }
   }
+
+  //전체 노드의 삭제 과정
+  if(head == NULL)
+  {
+    return 0;
+  }
+  else
+  {
+    // 첫번째 노드를 삭제하는 방법
+    Node * delNode = head;
+    Node * delNextNode = head->next;
+    printf("%d을 삭제 \n", head->data);
+    free(delNode);
+    // 두번째 이후 노드를 삭제하는 방법
+    while(delNextNode != NULL)
+    {
+      delNode = delNextNode;
+      delNextNode = delNextNode->next;
+      printf("%d을 삭제 \n", delNode->data);
+      free(delNode);
+    }
+  }
 }
