@@ -75,6 +75,20 @@ int LNext(List * plist, LData * pdata)
   *pdata = plist->cur->data; // cur이 가리키는 노드의 데이터 전달
   return TRUE; // 데이터 반환 성공
 }
+//단순 연결리스트- 한쪽 방향만 연결되어있으므로 왼쪽에 있는 노드의 주소값은 얻을 수 없음 
+
+LData LRemove(List * plist)
+{
+  Node * rpos = plist->cur;
+  LData rdata = rpos->data; // 백업 연산 
+  plist->before->next = plist->cur->next; // 왼편에 있는 노드가 오른쪽에 있는 노드를 가리켜야함
+  plist->cur = plist->before;
+
+  // 삭제 구현 
+  free(rpos); 
+  (plist->numOfData)--;
+  return rdata;
+}
 
 typedef LinkedList List;
 
