@@ -41,6 +41,7 @@ void LInsert(List * plist, LData data)
     SInsert(plist, data); // 정렬기준에 근거하여 노드 추가
 }
 
+// 삽입2
 void FInsert(List * plist, LData data)
 {
   Node * newNode = (Node*)malloc(sizeof(Node)); //새 노드 생성
@@ -50,12 +51,36 @@ void FInsert(List * plist, LData data)
   (plist->numOfData)++; // 저장된 노드의 수를 하나 증가
 }
 
+// 참조1 
+// 노드의 삭제를 위해 쓰는 before 
+int LFirst(List * plist, LData * pdata)
+{
+  if (plist->head->next == NULL) // 더미 노드가 NULL을 가리킨다면
+    return FALSE; // 반환할 데이터가 없음
+  // before는 삭제와 관련있음 
+  plist->before = plist->head; // before는 더미 노드를 가리키게 함
+  plist->cur = plist->head->next; // cur은 첫 번째 노드를 가리키게 함
+  *pdata = plist->cur->data; // 첫 번째 노드의 데이터를 전달()\\
+  return TRUE; // 데이터 반환 성공
+}
+
+// cur과 before 한칸씩 이동 시키기
+int LNext(List * plist, LData * pdata)
+{
+  if(plist->cur->next == NULL) // 더미노드가 NULL을 가리킨다면
+    return FALSE; // 반환할 데이터 없음
+  plist->before = plist->cur; // cur이 가리키던 것을 before가 가리킴
+  plist->cur = plist->cur->next; // cur은 그 다음 노드를 가리킴 
+
+  *pdata = plist->cur->data; // cur이 가리키는 노드의 데이터 전달
+  return TRUE; // 데이터 반환 성공
+}
 
 typedef LinkedList List;
 
 void ListInit(List * plist);
 void LInsert(List * plist, LData data);
-
+// 삭제 는 참조의 과정에서 이루어짐. LRemove함수 실행시 LFirst, LNext 참조가 이루어진 노드를 삭제하므로 
 int LFirst(List * plist, LData * pdata);
 int LNext(List * plist, LData * pdata);
 LData LRemove(List * plist);
