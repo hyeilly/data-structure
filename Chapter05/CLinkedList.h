@@ -77,3 +77,46 @@ void LInsertFront(List * plist, Data data)
   }
   (plist->numOfData)++;
 }
+
+int LFirst(List * plist, Data * pdata)
+{
+  if(plist->tail == NULL)
+    return false;
+  plist->before = plist->tail;
+  plist->cur = plist->tail->next;
+
+  *pdata = plist->cur->data;
+  rturn true;
+}
+
+int LNext(List * plist, Data * pdata)
+{
+  if(plist->tail == NULL)
+    return false;
+  plist->before = plist->cur;
+  plist->cur = plist->cur->next;
+
+  *pdata = plist->cur->data;
+  return true;
+}
+
+LData LRemove(List * plist)
+{
+  Node * rpos = plist->cur;
+  Data rdata = rpos->data;
+
+  // 꼬리라면 tail 위치 조정 필요
+  if(rpos == plist->tail)
+  {
+    if(plist->tail == plist->tail->next)
+      plist->tail = NULL;
+    else
+      plist->tail = plist->before;
+  }
+  plist->before->next = plist->cur->next;
+  plist->cur = plist->before;
+
+  free(rpos);
+  (plist->numOfData)--;
+  return rdata;
+}
