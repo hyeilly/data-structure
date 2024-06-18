@@ -34,3 +34,46 @@ void ListInit(List * plist)
   plist->numOfData = 0;
 }
 
+// 원형 리스트 구현 : 첫 번째 노드 삽입
+void LInsert(List * plist, Data data)
+{
+  Node * newNode = (Node*)malloc(sizeof(Node));
+  newNode->data = data;
+  
+  if(plist->tail == NULL)
+  {
+    // 첫 번째 노드라면
+    plist->tail = newNode;
+    newNode->next = newNode;
+  }
+  else
+  {
+    // 두 번째 이후 노드라면
+    // tail 이 새 노드를 가리키도록
+    newNode->next = plist->tail->next;
+    plist->tail->next = newNode;
+    plist->tail = newNode;
+  }
+  (plist->numOfData)++;
+}
+
+void LInsertFront(List * plist, Data data)
+{
+  Node * newNode = (Node*)malloc(sizeof(Node));
+  newNode->data = data;
+  
+  if(plist->tail == NULL)
+  {
+    // 첫 번째 노드라면
+    plist->tail = newNode;
+    newNode->next = newNode;
+  }
+  else
+  {
+    // 두 번째 이후 노드라면
+    newNode->next = plist->tail->next;
+    plist->tail->next = newNode;
+    
+  }
+  (plist->numOfData)++;
+}
