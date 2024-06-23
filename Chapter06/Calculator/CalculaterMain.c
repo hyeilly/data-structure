@@ -20,6 +20,27 @@ void ConvToRPNExp(char exp[])
       switch(tok)
       {
         // 연산자일때의 처리 루틴을 switch 문에 담음
+        case '(':
+          SPush(&stack, tok); // 스택에 쌓기
+          break;
+        case ')': // 닫는 소괄호는 전부다 빼서 원위치 
+          while(1)
+          {
+            popOp = SPop(&stack); // 스택에서 연산자를 꺼내어,
+            if(popOp == '(')
+              break;
+            convExp[idx++] = popOp; // 배열에 convExp 에 저장
+          }
+          break;
+        case '+': 
+        case '-':
+        case '*':
+        case '/':
+          while(!SIsEmpty(&stack) && WhoPrecOp(SPeek(&stack), tok) >= 0)
+            // 우선순위가 같다면 먼저 들어온 것이 우선순위가 더 높음
+            convExp[idx++] = SPop(&stack);
+          SPush(&stack, tok);
+          break;
       }
     }
   }
