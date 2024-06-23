@@ -78,3 +78,12 @@
 - 피연산자는 무조건 스택으로 옮김
 - 연산자를 만나면 스택에서 두 개의 피연산자를 꺼내서 계산
 - 계산결과는 다시 스택에 넣음
+
+### 계산기 프로그램의 완성1
+
+- 중위 표기법 수식 -> ConvToRPNExp -> EvalRPNExp -> 연산결과
+- 스택의 활용 : ListBaseStack.h / ListBaseStack.c
+- 후위 표기법의 수식으로 변환 : InfixToPostfix.h / InfixToPostfix.c
+- 후위 표기법의 수식을 계산 : PostCalculator.h / PostCalculator.c
+- 중위 표기법의 수식을 계산 : InfixCalculator.h / InfixCalculator.c
+- main : InfixCalculatorMain.c
