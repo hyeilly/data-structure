@@ -17,6 +17,10 @@ int QIsEmpty(Queue * pq)
 
 void Enqueue(Queue * pq, Data data)
 {
+  // F,R은 첫번째 노드 가리킴
+  // 새 노드가 등장하면 마지막 노드가 가리키게 하고, R 도 가리켜야함 
+  // F -> NULL
+  // R -> NULL 여기에 NULL 꼭 넣지 않아도 되도록 QIsEmpty 로 Front 가지고 체크 
   Node * newNode = (Node*)malloc(sizeof(Node));
   newNode->next = NULL;
   newNode->data = data;
@@ -32,6 +36,7 @@ void Enqueue(Queue * pq, Data data)
   }
 }
 
+// 데이터의 반환
 Data Dequeue(Queue * pq)
 {
   Node * delNode;
