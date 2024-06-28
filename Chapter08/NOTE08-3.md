@@ -22,15 +22,48 @@
 - 1단계 왼쪽 서브 트리의 순회
 - 2단계 루트노드의 방문
 - 3단계 오른쪽 서브 트리의 순회
+- 노드가 단말 노드인 경우, 단말 노드의 자식 노드는 NULL
 - ```
   void InorderTraverse(BTreeNode * bt)
   {
+    if(bt == NULL)
+      return;
     InorderTraverse(bt->left);
     printf("%d \n", bt->data);
     InorderTraverse(bt->right);
   }
   ```
+-
+
+### 함수 포인터 선언
+
+- `typedef void VisitFuncPtr(BTData data);`
+
+  - `typedef void (*VisitFuncPtr)` 으로 대신 가능
+  - **함수 포인터형** VisitFuncPtr의 정의
+
+- action이 가리키는 함수를 통해서 방문을 진행
 
 ```
+void InorderTraverse(BTreeNode * bt, VisitFuncPtr action)
+{
+  if(bt == NULL)
+    return;
+  InorderTraverse(bt->left, action);
+  action(bt->data); // 노드의 방문
+  InorderTraverse(bt->right, action);
+}
+```
 
+- action 이 가리키는 함수를 통해서 방문을 진행
+- BTreeNode의 인자 값 전달 받고, 함수의 주소값을 인자로 전달받음
+- 함수 만들기. 이름은 상관없지만 void 반환, 매개변수는 BTData여야함
+
+- VisitFuncPtr형을 기준으로 정의된 함수
+
+```
+void ShowIntData(int data)
+{
+  printf("%d ", data);
+}
 ```
