@@ -21,3 +21,23 @@ int main(void)
 ## 수식트리의 계산 과정
 
 - 두 개의 자식 노드가 피연산자라는 단순하지만 전부인 하나의 특성을 근거로 연산 매우 쉽게 진행
+
+## 수식트리를 만드는 절차
+
+- 중위 표기법의 수식 -> 후위 표기법의 수식 -> 수식 트리
+
+- 중위 표기법의 수식을 바로 수식 트리로 표현하는 것은 쉽지 않음
+- 하지만 일단 후위 표기법의 수식으로 변경한 다음에 수식 트리로 표현하는 것은 어렵지 않음
+
+### 수식 트리의 구현과 관련된 헤더파일
+
+- 구조체의 정의 가장 중요함.
+  `#include "BinaryTree2.h"`
+- `BTreeNode * MakeExpTree(char exp[]);` // 수식 트리 구성
+  - 후위 표기법의 수식을 인자로 받아서 수식 트리를 구성하고 루트 노드의 주소값 반환
+- `int EvaluateExpTree(BTreeNode * bt);` // 수식 트리 계산
+  - MakeExpTree가 구성한 수식 트리의 수식을 계산하여 그 결과를 반환
+- `void ShowPrefixTypeExp(BTreeNode * bt); ` // 전위 표기법 기반 출력
+- `void ShowInfixTypeExp(BTreeNode * bt); ` // 중위 표기법 기반 출력
+- `void ShowPostfixTypeExp(BTreeNode * bt); ` // 후위 표기법 기반 출력
+  - 전위, 중위, 후위 순회하여 출력 시 각각 전위, 중위, 후위 표기법의 수식이 출력
