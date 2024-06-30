@@ -7,7 +7,7 @@ typedef struct _bTreeNode
 {
   BTData data;
   struct _bTreeNode * left;
-  struct _bTreeNode * right
+  struct _bTreeNode * right;
 } BTreeNode;
 
 BTreeNode * MakeBTreeNode(void);
