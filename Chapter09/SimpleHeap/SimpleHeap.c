@@ -56,3 +56,30 @@ int GetHiPriChildIDX(Heap * ph, int idx)
       return GetLChildIDX(idx);
   }
 }
+
+// 삭제 과정에서는 완전 이진트리로 쓰지 않음 
+HData HDelete(Heap * ph)
+{
+  // 인덱스는 1 => 
+  HData retData = (ph->heapArr[1]).data; // 반환을 위해서 삭제할 데이터 저장
+  HeapElem lastElem = ph->heapArr[ph->numOfData]; // 힙의 마지막 노드 저장
+  
+  // 아래의 변수 parentIdx에는 마지막 노드가 저장될 위치정보가 담김
+  int parentIdx = 1; // 루트 노드가 위치해야 할 인덱스 값 저장
+  int childIdx;
+
+  // 루트 노드의 우선순위가 높은 자식 노드를 시작으로 반복문 시작
+  while(childIdx = GetHiPriChildIDX(ph, parentIdx))
+  {
+    if(lastElem.pr <= ph->heapArr[childIdx].pr) // 마지막 노드와 우선순위 비교
+      break; // 마지막 노드의 우선순위가 높으면 반복문 탈출
+    
+    // 마지막 노드보다 우선순위가 높으니, 비교대상 노드의 위치를 한 레벨 올림
+    ph->heapArr[parentIdx] = ph->heapArr[childIdx];
+    // 마지막 노드가 저장될 위치정보를 한 레벨 내림
+    parentIdx = childIdx;
+  } // 반복문 탈출하면 parentIdx에는 마지막 노드의 위치정보가 저장됨
+  ph->heapArr[parentIdx] = lastElem; // 마지막 노드 최종 저장
+  ph->numOfData -= 1;
+  return retData;
+}
