@@ -118,3 +118,13 @@ void HeapInit(Heap * ph, PriorityComp pc)
   ph->comp = pc;
 }
 ```
+
+## PriorityComp 형 함수의 정의 기준
+
+- 첫 번째 인자의 우선순위가 높다면 0보다 큰 값 반환
+- 두 번째 인자의 우선순위가 높다면 0보다 작은 값 반환
+- 첫 번째, 두 번째 인자의 우선순위가 동일하다면 0이 반환
+
+`void HInsert(Heap * ph, HData data, Priority pr);`
+
+- 우선순위 정보를 별도로 받지 않아 `void HInsert(Heap * ph, HData data);`
