@@ -67,3 +67,54 @@
 
 - 프로그래머 or 프로그램 사용자가 데이터의 우선순위를 직접 결정해야한다는 사실이 매우 안좋음..
 - 일반적으로는 데이터를 근거로해서 우선순위가 결정됨
+
+## 구조체 변경
+
+```
+typedef struct _heapElem
+{
+  Priority pr;
+  HData data;
+} HeapElem;
+
+typedef struct _heap
+{
+  int numOfData;
+  HeapElem heapArr[HEAP_LEN];
+} Heap;
+```
+
+- Heap에 저장하는 데이터의 기본 단위 HeapElem도 구조체의 자료형
+  - 실제로 저장해야하는 data, 데이터의 우선순위 pr을 하나로 묶기 위함
+  - 불합리. 보편적으로 사용하기엔 불편
+  - 일반적으로는 우선순위를 판단하는 기준이 데이터 이므로
+  - 기준을 결정하면 데이터만 가지고 우선순위를 비교하는 것이 합리적
+- data가 있음에도 pr 우선순위가 다름
+  - ex) 같은 데이터 5가 2개 들어왔을 때 1개는 우선순위1 다른 한개는 우선순위2 일수 있음
+- 우선순위 정보를 별도로 유지하지 않는 것이 바랍직함
+- 힙 구현 후 데이터 우선순위를 결정하는 기준을 함수로 등록.
+  - 함수 호출 결과로 우선순위 판단
+- `typedef int PriorityComp(HData d1, HData d2);` 함수포인터 선언
+  - \* 을 안붙임
+  - PriorityComp를 선언할 때 반드시 \* 을 붙여라
+  - 매개변수로 쓰는 경우 예외. \*을 붙이든 아니든 상관없음
+  - 만약 `typedef int (*PriorityComp)(HData d1, HData d2)` 으로 붙였다면 \*을 빼서 쓰겠다
+
+```
+typedef struct _heap
+{
+  PriorityComp * comp; // 우선순위 판단하는 함수의 주소값을 저장
+  int numOfData;
+  HData heapArr[HEAP_LEN];
+} Heap;
+```
+
+- 구조체 변경에 따른 초기화 함수의 변경
+
+```
+void HeapInit(Heap * ph, PriorityComp pc)
+{
+  ph->numOfData = 0;
+  ph->comp = pc;
+}
+```
