@@ -83,3 +83,26 @@ HData HDelete(Heap * ph)
   ph->numOfData -= 1;
   return retData;
 }
+
+void HInsert(Heap * ph, HData data, Priority pr)
+{
+  int idx = ph->numOfData + 1; // 새 노드가 저장될 인덱스 값을 idx에 저장
+  HeapElem nelem = {pr, data}; // 새 노드의 생성 및 초기화(백업)
+  // 새 노드가 저장될 위치가 루트 노드의 위치가 아니라면 while 문 반복
+  while(idx != 1)
+  {
+    // 새 노드와 부모 노드의 우선순위 비교
+    if(pr < (ph->heapArr[GetParentIDX(idx)].pr)) // 새 노드의 우선순위가 높다면
+    {
+      // 부모 노드를 한 레벨 내림, 실제로 내림
+      ph->heapArr[idx] = ph->heapArr[GetParentIDX(idx)];
+      // 새 노드를 한 레벨 올림, 실제로 올리지는 않고 인덱스 값만 갱신
+      idx = GetParentIDX(idx);
+    }
+    else // 새 노드의 우선순위가 높지 않다면
+      break;
+  }
+  ph->heapArr[idx] = nelem; // 새 노드를 배열에 저장
+  ph->numOfData += 1;
+  // 새 노드의 인덱스 정보를 갱신만 하기
+}
