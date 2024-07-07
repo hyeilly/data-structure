@@ -128,3 +128,8 @@ void HeapInit(Heap * ph, PriorityComp pc)
 `void HInsert(Heap * ph, HData data, Priority pr);`
 
 - 우선순위 정보를 별도로 받지 않아 `void HInsert(Heap * ph, HData data);`
+
+#### 힙의 함수를 사실상 우선순의 큐의 내용으로 구현
+
+- HInsert 함수는 PEnqueue() 기능
+- HDelete 함수는 PDequeue() 기능
