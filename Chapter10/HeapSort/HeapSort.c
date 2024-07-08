@@ -25,6 +25,7 @@ int main(void)
 {
   int arr[4] = {3, 4, 2, 1};
   int i;
+  
   HeapSort(arr, sizeof(arr) / sizeof(int), PriComp);
   
   for(i = 0; i < 4; i++)
