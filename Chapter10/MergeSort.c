@@ -38,6 +38,7 @@ void MergeTwoArea(int arr[], int left, int mid, int right)
 }
 
 // 둘로 나눌 수 없을 때까지 재귀적으로 호출 
+
 void MergeSort(int arr[], int left, int right)
 {
   int mid;
