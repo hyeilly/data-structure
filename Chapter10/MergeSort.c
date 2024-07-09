@@ -7,9 +7,10 @@ void MergeTwoArea(int arr[], int left, int mid, int right)
   int rIdx = mid + 1;
   int i;
 
-  int * sortArr = (int*)malloc(sizeof(int) * (right + 1));
+  int * sortArr = (int*)malloc(sizeof(int) * (right + 1)); // 병합 결과를 담을 메모리 공간 할당
   int sIdx = left;
 
+  // 병합할 두 영역의 데이터를 비교하여 배열 sortArr에 담음
   while(fIdx <= mid && rIdx <= right)
   {
     if(arr[fIdx] <= arr[rIdx])
@@ -20,20 +21,24 @@ void MergeTwoArea(int arr[], int left, int mid, int right)
     sIdx++;
   }
   
+  // 배열의 앞 부분이 sortArr로 모두 이동되어서 배열 뒷부분에 남은 데이터를 모두 sortArr로 이동
   if(fIdx > mid)
   {
     for(i = rIdx; i <= right; i++, sIdx++)
       sortArr[sIdx] = arr[i];
   }
+  // 배열의 뒷 부분이 sortArr로 모두 이동되어서 배열 앞부분에 남은 데이터를 모두 sortArr로 이동
   else
   {
     for(i = fIdx; i <= mid; i++, sIdx++)
       sortArr[sIdx] = arr[i];
   }
-
+  
+  // 병합 결과를 옮겨 담음
+  // (rIdx가 끝까지 갔지만, fIdx가 더 안간다면 차례대로 남아있는 데이터 옮기기)
   for(i = left; i <= right; i++)
     arr[i] = sortArr[i];
-  
+  // 동적 할당 메모리 공간 소멸
   free(sortArr);
 }
 
