@@ -1,3 +1,5 @@
+// 이진트리
+
 #ifndef __BINARY_TREE2_H__
 #define __BINARY_TREE2_H__
 
