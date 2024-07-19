@@ -67,18 +67,16 @@ BTreeNode * BSTSearch(BTreeNode * bst, BSTData target)
 
 BTreeNode * BSTRemove(BTreeNode ** pRoot, BSTData target)
 {
-    BTreeNode * pVRoot = MakeBTreeNode(); // 가상 루트 노드 만들기
+    BTreeNode * pVRoot = MakeBTreeNode();
 
     BTreeNode * pNode = pVRoot; // parent node
     BTreeNode * cNode = *pRoot; // current node
     BTreeNode * dNode; // delete node
 
-    ChangeRightSubTree(pVRoot, *pRoot); // 진짜 루트노드가 가상 루트노드의 오른쪽 자식이 되게끔 함
+    ChangeRightSubTree(pVRoot, *pRoot);
 
-    // 삭제 대상인 노드를 탐색
     while(cNode != NULL && GetData(cNode) != target)
     {
-        // cNode의 부모 노드를 pNode가 가리키게 해야하기 때문에 이 부분을 BSTSearch 함수의 호출로 대신할 수 없음
         pNode = cNode;
         
         if(target < GetData(cNode))
@@ -87,24 +85,21 @@ BTreeNode * BSTRemove(BTreeNode ** pRoot, BSTData target)
             cNode = GetRightSubTree(cNode);
     }
 
-    if(cNode == NULL) // 삭제 대상이 존재하지 않는다면
+    if(cNode == NULL)
         return NULL;
 
-    dNode = cNode; // 삭제 대상을 dNode가 가리키게 함 
+    dNode = cNode;
 
-    // dNode와 pNode는 각각 삭제할 노드와 이의 부모를 가리키는 포인터 변수
-    // 첫번째 경우 : 삭제 대상이 단말 노드인 경우
     if(GetLeftSubTree(dNode) == NULL && GetRightSubTree(dNode) == NULL)
     {
-        if(GetLeftSubTree(pNode) == dNode) // 삭제할 노드가 왼쪽 자식 노드라면
-            RemoveLeftSubTree(pNode); // 왼쪽 자식 노드 트리에서 제거
-        else // 삭제할 노드가 오른쪽 자식 노드라면
-            RemoveRightSubTree(pNode); // 오른쪽 자식 노드 트리에서 제거
+        if(GetLeftSubTree(pNode) == dNode)
+            RemoveLeftSubTree(pNode);
+        else
+            RemoveRightSubTree(pNode);
     }
-    // 두번째 경우 : 삭제 대상이 하나의 자식 노드를 가짐 
     else if(GetLeftSubTree(dNode) == NULL || GetRightSubTree(dNode) == NULL)
     {
-        BTreeNode * dcNode; // 삭제 대상의 자식 노드 가리킴 
+        BTreeNode * dcNode; // delete node
         
         if(GetLeftSubTree(dNode) != NULL)
             dcNode = GetLeftSubTree(dNode);
@@ -116,35 +111,33 @@ BTreeNode * BSTRemove(BTreeNode ** pRoot, BSTData target)
         else
             ChangeRightSubTree(pNode, dcNode);
     }
-    // 세번째 경우 : 두 개의 자식 노드를 모두 갖는 경우
     else
     {
-        BTreeNode * mNode = GetRightSubTree(dNode); // 대체 노드 가리킴
-        BTreeNode * mpNode = dNode; // 대체 노드의 부모 노드를 가리킴
+        BTreeNode * mNode = GetRightSubTree(dNode); // mininum node
+        BTreeNode * mpNode = dNode;
         int delData;
-        // 삭제 대상의 대체 노드를 찾음
+
         while(GetLeftSubTree(mNode) != NULL)
         {
             mpNode = mNode;
             mNode = GetLeftSubTree(mNode);
         }
-        // 대체 노드에 저장된 값을 삭제할 노드에 대입
+
         delData = GetData(dNode);
         SetData(dNode, GetData(mNode));
-        // 대체 노드의 부모 노드와 자시 노드를 연결
+
         if(GetLeftSubTree(mpNode) == mNode)
             ChangeLeftSubTree(mpNode, GetRightSubTree(mNode));
         else
             ChangeRightSubTree(mpNode, GetRightSubTree(mNode));
         dNode = mNode;
-        SetData(dNode, delData); // 백업 데이터 복원
+        SetData(dNode, delData);
     }
-    // 삭제된 노드가 루트 노드인 경우에 대한 추가적인 처리
     if(GetRightSubTree(pVRoot) != *pRoot)
-        *pRoot = GetRightSubTree(pVRoot); // 루트 노드의 변경을 반영
+        *pRoot = GetRightSubTree(pVRoot);
     
-    free(pVRoot); // 가상 루트 노드의 소멸
-    return dNode; // 삭제 대상의 반환
+    free(pVRoot);
+    return dNode;
 }
 
 void ShowIntData(int data)
