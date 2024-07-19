@@ -96,3 +96,41 @@ if(삭제할 노드가 하나의 자식 노드를 지님)
 1. 삭제할 노드를 대체할 노드를 찾음
 2. 대체할 노드에 저장된 값을 삭제할 노드에 대입
 3. 대체할 노드의 부모 노드와 자식 노드를 연결
+
+#### 이진 탐색 트리 삭제 구현: 상황 3구현
+
+- 대입, 새로운 연결
+  - 삭제할 노드가 있고, 바로 아래 오른쪽 자식노드가 삭제할 노드의 교체 대상
+- mNode는 대체할 노드를 찾는 것 mpNode도 함께 찾음.
+  - mNode의 부모노드를 mpNode가 가리키도록 함 `BinarySearchTree2.c` 참고
+
+```
+// dNode 와 pNode는 각각 삭제할 노드와 이의 부모 노드를 가리키는 포인터 변수
+if(삭제할 노드가 두 개의 자식 노드를 지님)
+{
+  BTreeNode * mNode = GetRightSubTree(dNode); // mNode는 대체 노드 가리킴
+  BTreeNode * mpNode = dNode; //mpNode는 대체 노드의 부모 노드 가리킴
+  // ...
+  // 단계1. 삭제 대상의 대체 노드를 찾음
+  while(GetLeftSubTree(mNode) != NULL)
+  {
+    mpNode = mNode;
+    mNode = GetLeftSubTree(mNode);
+  }
+  // 단계2. 대체할 노드에 저장된 값을 삭제할 노드에 대입
+  SetData(dNode, GetDAta(mNode));
+
+  // 단계3. 대체할 노드의 부모 노드와 자식 노드를 연결
+  if(GetLeftSubTree(mpNode) == mNode) // 대체할 노드가 왼쪽 자식 노드라면
+  {
+    // 대체할 노드의 자식 노드를 부모 노드의 왼쪽에 연결. (자식 노드가 있다면 오른쪽 자식 노드)
+    ChangeLeftSubTree(mpNode, GetRightSubTree(mNode));
+  }
+  else // 대체할 노드가 오른쪽 자식 노드라면
+  {
+    // 대체할 노드의 자식 노드를 부모 노드의 오른쪽에 연결(자식 노드가 있다면 오른쪽 자식노드)
+    ChangeRightSubTree(mpNode, GetRightSubTree(mNode));
+  }
+
+}
+```
