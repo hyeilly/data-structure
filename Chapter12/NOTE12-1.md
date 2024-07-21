@@ -42,3 +42,26 @@
 - RR 상태와 RR 회전
   - `ChangeRightSubTree(parentNode, GetLeftSubTree(currentNode));`
   - `ChangeLeftSubTree(currentNode, parentNode);`
+
+### LR 상태
+
+- LL상태 그리고 RR상태와 같이 한 번의 회전으로 균형을 잡을 수 없음
+  - ex) 간단한 LR 상태
+    - 5의 왼쪽 노드 1, 1의 오른쪽 노드 3
+    - 1. LL 상태가 되도록 바꾸기 위해 RR 회전 적용
+- RR 회전
+  - 일반적인 RR 회전
+    - 5의 오른쪽 노드 7, 7의 오른쪽 노드 9
+  - 단말 노드가 NULL인 경우에도 RR 회전 자능
+    - 5의 오른쪽 노드 7, 7의 오른쪽 노드 NULL
+  - 부모 자식의 관계가 바뀌는 부수적인 효과
+    - 5의 오른쪽 노드 7 => RR 회전하여 7이 부모노드, 5가 자식노드
+- 따라서 LR 상태는 한 번의 회전으로 균형이 잡히는 LL상태 또는 RR상태가 되도록 하는 것이 우선
+- LR 상태는 RR 회전을 통해서 (RR 회전의 부수적인 효과를 이용해서) LL 상태가 되게 할 수 있음
+
+- `LR 상태 > RR 회전 > LL 회전 `
+
+### RL 상태와 RL 회전
+
+- LR 상태 LR 회전, 그리고 RL 상태 RL 회전은 방향에서만 차이를 보임
+- `RL 상태 > LL 회전 > RR 회전 `
