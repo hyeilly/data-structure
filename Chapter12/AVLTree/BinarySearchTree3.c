@@ -16,6 +16,7 @@ BSTData BSTGetNodeData(BTreeNode * bst)
 
 void BSTInsert(BTreeNode ** pRoot, BSTData data)
 {
+  // 루트노드의 주소 값을 가지고 있는 포인터 변수의 주소 값을 전달받음 pRoot => 값 직접 변경 가능하도록
   BTreeNode * pNode = NULL; //parent node
   BTreeNode * cNode = *pRoot; //current node
   BTreeNode * nNode = NULL; // new node
@@ -47,7 +48,12 @@ void BSTInsert(BTreeNode ** pRoot, BSTData data)
     *pRoot = nNode;
   }
 
-  *pRoot = Rebalance(pRoot);
+  // 루트노드 변경된 정보를 반영하기 위한 문장
+  // *pRoot = Rebalance(pRoot);
+
+  Rebalance(pRoot); // 노드 추가 후 리밸런싱
+  // 리밸런싱의 과정에서 루트 노드가 변경될 수 있음
+  
 }
 
 BTreeNode * BSSearch(BTreeNode * bst, BSTData target)
@@ -142,7 +148,8 @@ BTreeNode * BSTRemove(BTreeNode ** pRoot, BSTData target)
     *pRoot = GetRightSubTree(pVRoot);
   
   free(pVRoot);
-  *pRoot = Rebalance(pRoot);
+  // *pRoot = Rebalance(pRoot);
+  Rebalance(pRoot); // 노드 제거 후 리밸런싱
   return dNode;
 }
 

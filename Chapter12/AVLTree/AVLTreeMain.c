@@ -19,22 +19,22 @@ int main(void)
   BSTInsert(&avlRoot, 8);
   BSTInsert(&avlRoot, 9);
   
-  printf("%d \n", GetData(avlRoot));
+  printf("루트 노드 : %d \n", GetData(avlRoot));
   
   clNode = GetLeftSubTree(avlRoot);
   crNode = GetRightSubTree(avlRoot);
-  printf("1: %d \n, 1: %d \n", GetData(clNode), GetData(crNode));
+  printf("왼쪽1: %d \n, 오른쪽1: %d \n", GetData(clNode), GetData(crNode));
 
   clNode = GetLeftSubTree(avlRoot);
   crNode = GetRightSubTree(avlRoot);
-  printf("2: %d \n, 2: %d \n", GetData(clNode), GetData(crNode));
+  printf("왼쪽2: %d \n, 오른쪽2: %d \n", GetData(clNode), GetData(crNode));
 
   clNode = GetLeftSubTree(avlRoot);
   crNode = GetRightSubTree(avlRoot);
-  printf("3: %d \n, 3: %d \n", GetData(clNode), GetData(crNode));
+  printf("왼쪽3: %d \n, 오른쪽3: %d \n", GetData(clNode), GetData(crNode));
 
   clNode = GetLeftSubTree(avlRoot);
   crNode = GetRightSubTree(avlRoot);
-  printf("4: %d \n, 4: %d \n", GetData(clNode), GetData(crNode));
+  printf("왼쪽4: %d \n, 오른쪽4: %d \n", GetData(clNode), GetData(crNode));
   return 0;
 }
