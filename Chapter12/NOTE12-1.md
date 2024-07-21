@@ -32,3 +32,13 @@
 - LL 상태
   - 5가 저장된 노드의 왼쪽(Left)에 3이 저장된 자식 노드가 하나 존재하고, 그 자식 노드의 왼쪽(Left)에 1이 저장된 자식 노드가 또 하나 존재
   - 이런 LL상태를 균형 잡기 위해서 LL 회전을 진행
+
+### LL상태를 균형 잡기 위한 LL회전
+
+- LL 회전 `ChangeRightSubTree(currentNode, parentNode);`
+- 서브트리가 있을 수 있고, 없을 수도 있음. => 단순한 예시로 일반화한 코드 작성 필요
+  - `ChangeLeftSubTree(parentNode, GetRightSubTree(currentNode));`
+  - `ChangeRightSubTree(currentNode, parentNode);`
+- RR 상태와 RR 회전
+  - `ChangeRightSubTree(parentNode, GetLeftSubTree(currentNode));`
+  - `ChangeLeftSubTree(currentNode, parentNode);`
