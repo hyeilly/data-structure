@@ -14,66 +14,92 @@ BSTData BSTGetNodeData(BTreeNode * bst)
   return GetData(bst);
 }
 
-void BSTInsert(BTreeNode ** pRoot, BSTData data)
+BTreeNode * BSTInsert(BTreeNode ** pRoot, BSTData data)
 {
-  // 루트노드의 주소 값을 가지고 있는 포인터 변수의 주소 값을 전달받음 pRoot => 값 직접 변경 가능하도록
-  BTreeNode * pNode = NULL; //parent node
-  BTreeNode * cNode = *pRoot; //current node
-  BTreeNode * nNode = NULL; // new node
-
-  while(cNode != NULL)
+  if(*pRoot == NULL)
   {
-    if(data == GetData(cNdoe))
-      return;
-
-    pNode = cNode;
-    
-    if(GetData(cNode) > data)
-      cNode = GetLeftSubTree(cNode);
-    else
-      cNode = GetRightSubTree(cNode);
+    *pRoot = MakeBTreeNode();
+    SetData(*pRoot, data);
   }
-  nNode = MakeBTreeNode();
-  SetData(nNode, data);
-
-  if(pNode != NULL)
+  else if(data < GetData(*pRoot))
   {
-    if(data < GetData(pNode))
-      MakeLeftSubTree(pNode, nNode);
-    else
-      MakeRightSubTree(pNode, nNode);
+    // 왼쪽 자식노드의 주소값 전달
+    BSTInsert(&((*pRoot)->left), data); // 재귀 호출 
+    *pRoot = Rebalance(pRoot);
+  }
+  else if(data > GetData(*pRoot))
+  {
+    BSTInsert(&((*pRoot)->left), data);
+    *pRoot = Rebalance(pRoot);
   }
   else
   {
-    *pRoot = nNode;
+    return NULL; // 키의 중복 허용하지 않음 
   }
+  return *pRoot;
+}
 
-  // 루트노드 변경된 정보를 반영하기 위한 문장
-  // *pRoot = Rebalance(pRoot);
 
-  Rebalance(pRoot); // 노드 추가 후 리밸런싱
-  // 리밸런싱의 과정에서 루트 노드가 변경될 수 있음
+// void BSTInsert(BTreeNode ** pRoot, BSTData data)
+// {
+//   // 루트노드의 주소 값을 가지고 있는 포인터 변수의 주소 값을 전달받음 pRoot => 값 직접 변경
+//   BTreeNode * pNode = NULL; //parent node
+//   BTreeNode * cNode = *pRoot; //current node
+//   BTreeNode * nNode = NULL; // new node
+
+//   while(cNode != NULL)
+//   {
+//     if(data == GetData(cNdoe))
+//       return;
+
+//     pNode = cNode;
+    
+//     if(GetData(cNode) > data)
+//       cNode = GetLeftSubTree(cNode);
+//     else
+//       cNode = GetRightSubTree(cNode);
+//   }
+//   nNode = MakeBTreeNode();
+//   SetData(nNode, data);
+
+//   if(pNode != NULL)
+//   {
+//     if(data < GetData(pNode))
+//       MakeLeftSubTree(pNode, nNode);
+//     else
+//       MakeRightSubTree(pNode, nNode);
+//   }
+//   else
+//   {
+//     *pRoot = nNode;
+//   }
+
+//   // 루트노드 변경된 정보를 반영하기 위한 문장
+//   // *pRoot = Rebalance(pRoot);
+
+//   Rebalance(pRoot); // 노드 추가 후 리밸런싱
+//   // 리밸런싱의 과정에서 루트 노드가 변경될 수 있음
   
-}
+// }
 
-BTreeNode * BSSearch(BTreeNode * bst, BSTData target)
-{
-  BTreeNode * cNode = bst; //current node
-  BSTData cd; // current data
+// BTreeNode * BSSearch(BTreeNode * bst, BSTData target)
+// {
+//   BTreeNode * cNode = bst; //current node
+//   BSTData cd; // current data
 
-  while(cNode != NULL)
-  {
-    cd = GetData(cNode);
+//   while(cNode != NULL)
+//   {
+//     cd = GetData(cNode);
 
-    if(target == cd)
-      return cNode;
-    else if(target < cd)
-      cNode = GetLeftSubTree(cNode);
-    else
-      cNode = GetRightSubTree(cNode);
-  }
-  return NULL;
-}
+//     if(target == cd)
+//       return cNode;
+//     else if(target < cd)
+//       cNode = GetLeftSubTree(cNode);
+//     else
+//       cNode = GetRightSubTree(cNode);
+//   }
+//   return NULL;
+// }
 
 BTreeNode * BSTRemove(BTreeNode ** pRoot, BSTData target)
 {
