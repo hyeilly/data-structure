@@ -23,3 +23,44 @@
 - ex) 방향 그래프
   - V(G3) = {A, B, C, D}
   - E(G3) = {<A, B>, <A, C>, <D, A>}
+
+### 그래프의 ADT
+
+- 그래프를 편히 표현할 수 있도록 ADT 정의
+- 언제든 탐색, 추가, 삭제가 가능해야함.
+- 방향 그래프와 무방향 그래프를 선택하여 담아야함
+- 모든 기능과 가능성을 담아서 ADT를 정의하는 것이 능사는 아님
+- 특정 그래프를 대상으로 ADT를 제한하여 정의하는 것이 좋을 수 있음
+
+- `void GraphInit(UALGraph * pg, int nv);`
+  - 그래프의 초기화를 진행
+  - 두 번째 인자로 정점의 수를 전달
+- `void GraphDestroy(UALGraph * pg);`
+  - 그래프 초기화 과정에서 할당한 리소스를 반환
+- `void AddEdge(UALGraph * pg, int fromV, int toV);`
+  - 매개변수 fromV와 toV로 전달된 정점을 연결하는 간선을 그래프에 추가
+- `void ShowGraphEdgeInfo(UALGraph * pg);`
+
+  - 그래프의 간선정보를 출력
+
+- 헤더에서 정점의 이름을 선언할 수도 있음
+  - `enum {A, B, C, D, E, F, G, H, I, J}`
+  - `enum {SEOUL, INCHEON, DAEGU, BUSAN, KWANGJU}`
+
+### 그래프를 구현하는 방법 1: 인접 행렬 기반
+
+- 정방 행렬을 이용하는 '인접 행렬 기반 그래프'
+- ex) 4x4(간선의 수) 2차원 배열 선언
+
+### 그래프를 구현하는 방법 2: 인접 리스트 기반
+
+- 방향성이 없는 경우
+  - A->B->C->D
+  - B->A
+  - C->A
+  - D->A
+- 방향성이 있는 경우
+  - A->B->C->D
+  - B
+  - C
+  - D
