@@ -6,7 +6,8 @@
 #define TRUE  1
 #define FALSE 0
 
-typedef Slot LData;
+typedef Slot LData; // 변경된 typedef 선언문
+// 데이터가 슬롯임. LData를 Slot으로 typedef 선언
 
 typedef struct _node
 {
