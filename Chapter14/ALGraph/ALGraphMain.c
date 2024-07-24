@@ -3,18 +3,18 @@
 
 int main(void)
 {
-  ALGraph graph;
-  GraphInit(&graph, 5);
+  ALGraph graph; // 그래프의 생성
+  GraphInit(&graph, 5); // 그래프의 초기화
 
-  AddEdge(&graph, A, B);
+  AddEdge(&graph, A, B); // 정점 A와 B를 연결
   AddEdge(&graph, A, D);
   AddEdge(&graph, B, C);
   AddEdge(&graph, C, D);
   AddEdge(&graph, D, E);
   AddEdge(&graph, E, A);
 
-  ShowGraphEdgeInfo(&graph);
+  ShowGraphEdgeInfo(&graph); // 그래프의 간선정보 출력(참조용)
 
-  GraphDestroy(&graph);
+  GraphDestroy(&graph); // 그래프의 리소스 소멸
   return 0;
 }
