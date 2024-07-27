@@ -88,18 +88,23 @@ void BFShowGraphVertex(ALGraph * pg, int startV)
 
   QueueInit(&queue);
 
+  // 시작점 방문
   VisitVertex(pg, visitV);
 
   while(LFirst(&(pg->adjList[visitV]), &nextV) == TRUE)
   {
+    // visitV에 연결된 정점 정보 얻음
     if(VisitVertex(pg, nextV) == TRUE)
       Enqueue(&queue, nextV);
 
+    // 계속해서 visitV에 연결된 정점 정보를 얻음 
     while(LNext(&(pg->adjList[visitV]), &nextV) == TRUE)
     {
       if(visitV(pg, nextV) == TRUE)
         Enqueue(&queue, nextV);
     }
+    
+    // 큐가 비면 탈출 조건이 성립
     if(QIsEmpty(&queue) == TRUE)
       break;
     else
