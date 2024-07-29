@@ -14,7 +14,7 @@ typedef struct _ual
   int numE;
   List * adjList;
   int * visitInfo;
-  PQueue pqueue;
+  PQueue pqueue; // 간선의 가중치 정보 저장
 } ALGraph;
 
 void GraphInit(ALGraph * pg, int nv);
@@ -27,8 +27,8 @@ void ShowGraphEdgeInfo(ALGraph * pg);
 
 void DFShowGraphVertex(ALGraph * pg, int startV);
 
-void ConKruskalMST(ALGraph * pg);
+void ConKruskalMST(ALGraph * pg); // 최소 비용 신장 트리의 구성
 
-void ShowGraphEdgeWeightInfo(ALGraph * pg);
+void ShowGraphEdgeWeightInfo(ALGraph * pg); // 가중치 정보 출력
 
 #endif
